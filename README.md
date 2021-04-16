@@ -1,6 +1,6 @@
 # sokoban
 
-Nom: Louis et Clara
+Nom: Clara
 
 
 
