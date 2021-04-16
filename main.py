@@ -3,16 +3,26 @@ import time
 import player
 import target
 import wall
-
+import sys
 
 listWall = [[2,0], [2,1], [2,2], [2,3], [2,4], [2,5],[2,6],[2,7], [2,8], [2,9], [2,10],[2,11], [2,12], [2,13], [2,14], [2,15], [2,16], [2,17], [2,18], [2,19], [2,20], [3,0], [3,20], [4,0], [4,20],[5,0], [5,20],[6,0], [6,1], [6,2], [6,3], [6,4], [6,5],[6,6],[6,7], [6,8], [6,9], [6,10],[6,11], [6,12], [6,13], [6,14], [6,15], [6,16],[6,17],[6,18], [6,19], [6,20],  [5,7]]
 joueur = player.Player(4,4)
 listCible = [[4,6], [4,9]]
 listCaisse = [[4,5], [4,13]]
+joueurPos = [joueur.posX,joueur.posY]
 
 presenceCaisse = False
  
 def resetMap(stdscr):
+    stdscr.clear()
+    listWall = [[2,0], [2,1], [2,2], [2,3], [2,4], [2,5],[2,6],[2,7], [2,8], [2,9], [2,10],[2,11], [2,12], [2,13], [2,14], [2,15], [2,16], [2,17], [2,18], [2,19], [2,20], [3,0], [3,20], [4,0], [4,20],[5,0], [5,20],[6,0], [6,1], [6,2], [6,3], [6,4], [6,5],[6,6],[6,7], [6,8], [6,9], [6,10],[6,11], [6,12], [6,13], [6,14], [6,15], [6,16],[6,17],[6,18], [6,19], [6,20],  [5,7]]
+    
+    joueurPos = [4,4]
+    joueur.posX = 4
+    joueur.posY = 4
+    listCible = [[4,6], [4,9]]
+    listCaisse = [[4,5], [4,13]]
+
     for wall in listWall:
         stdscr.addstr(wall[0],wall[1], f"#" )    
 
@@ -21,7 +31,6 @@ def resetMap(stdscr):
 
     for caisse in listCaisse:
         stdscr.addstr(caisse[0],caisse[1], f"X" )        
-    
     
     stdscr.addstr(joueur.posX, joueur.posY, "P")
 
@@ -247,7 +256,9 @@ def main(stdscr):
         if entry == curses.KEY_RIGHT:
             droite(stdscr)  
         if entry ==  32:
-            resetMap(stdscr)   
+            resetMap(stdscr) 
+        if entry ==  27 or entry == ord('q') or entry == ord('Q'):
+            sys.exit()
 
 
     curses.endwin()
