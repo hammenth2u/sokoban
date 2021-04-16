@@ -12,6 +12,20 @@ listCaisse = [[4,5], [4,13]]
 
 presenceCaisse = False
  
+def resetMap(stdscr):
+    for wall in listWall:
+        stdscr.addstr(wall[0],wall[1], f"#" )    
+
+    for cible in listCible:
+        stdscr.addstr(cible[0],cible[1], f"O" )    
+
+    for caisse in listCaisse:
+        stdscr.addstr(caisse[0],caisse[1], f"X" )        
+    
+    
+    stdscr.addstr(joueur.posX, joueur.posY, "P")
+
+
 
 
 def haut(stdscr):
@@ -48,6 +62,13 @@ def haut(stdscr):
 
             i = listCaisse.index(joueurNextPos)
             listCaisse[i] = [joueur.posX - 1, joueur.posY]
+
+            if listCaisse[i] in listCible:
+                if len(listCaisse) > 0:
+                    del listCaisse[i]  
+                    longueur = len(listCaisse)
+                    if longueur == 0:
+                        stdscr.addstr(20, 0, f"Partie gagnée !")         
                 
 
               
@@ -85,7 +106,14 @@ def bas(stdscr):
             joueurPos = [joueur.posX,joueur.posY]   
 
             i = listCaisse.index(joueurNextPos)
-            listCaisse[i] = [joueur.posX + 1, joueur.posY]   
+            listCaisse[i] = [joueur.posX + 1, joueur.posY]  
+
+            if listCaisse[i] in listCible:
+                if len(listCaisse) > 0:
+                    del listCaisse[i]   
+                    longueur = len(listCaisse)
+                    if longueur == 0:
+                        stdscr.addstr(20, 0, f"Partie gagnée !")            
 
 
 
@@ -123,6 +151,13 @@ def gauche(stdscr):
             i = listCaisse.index(joueurNextPos)
             listCaisse[i] = [joueur.posX, joueur.posY - 1]
 
+            if listCaisse[i] in listCible:
+                if len(listCaisse) > 0:
+                    del listCaisse[i]   
+                    longueur = len(listCaisse)
+                    if longueur == 0:
+                        stdscr.addstr(20, 0, f"Partie gagnée !")         
+
 
 
 def droite(stdscr):  
@@ -157,7 +192,16 @@ def droite(stdscr):
             joueurPos = [joueur.posX,joueur.posY]  
 
             i = listCaisse.index(joueurNextPos)
-            listCaisse[i] = [joueur.posX, joueur.posY + 1]                       
+            listCaisse[i] = [joueur.posX, joueur.posY + 1]  
+
+            if listCaisse[i] in listCible:
+                if len(listCaisse) > 0:
+                    del listCaisse[i]   
+                    longueur = len(listCaisse)
+                    if longueur == 0:
+                        stdscr.addstr(20, 0, f"Partie gagnée !")
+
+                                          
 
 
 
@@ -170,24 +214,23 @@ def main(stdscr):
 
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
-
-    
-    target_one = target.Target(4,6) 
+ 
     
     stdscr.addstr(0,0,f"Hello bienvenue dans le jeu sokoban")
         
-    for wall in listWall:
-        stdscr.addstr(wall[0],wall[1], f"#" )    
+    # for wall in listWall:
+    #     stdscr.addstr(wall[0],wall[1], f"#" )    
 
-    for cible in listCible:
-        stdscr.addstr(cible[0],cible[1], f"O" )    
+    # for cible in listCible:
+    #     stdscr.addstr(cible[0],cible[1], f"O" )    
 
-    for caisse in listCaisse:
-        stdscr.addstr(caisse[0],caisse[1], f"X" )        
+    # for caisse in listCaisse:
+    #     stdscr.addstr(caisse[0],caisse[1], f"X" )        
     
     
-    stdscr.addstr(joueur.posX, joueur.posY, "P")
-    stdscr.addstr(target_one.posX, target_one.posY, "O")
+    # stdscr.addstr(joueur.posX, joueur.posY, "P")
+
+    resetMap(stdscr)
 
     while True:
         entry = stdscr.getch()
@@ -202,7 +245,9 @@ def main(stdscr):
         if entry == curses.KEY_LEFT:
             gauche(stdscr)
         if entry == curses.KEY_RIGHT:
-            droite(stdscr)
+            droite(stdscr)  
+        if entry ==  32:
+            resetMap(stdscr)   
 
 
     curses.endwin()
