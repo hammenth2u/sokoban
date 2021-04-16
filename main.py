@@ -4,6 +4,164 @@ import player
 import target
 import wall
 
+
+listWall = [[2,0], [2,1], [2,2], [2,3], [2,4], [2,5],[2,6],[2,7], [2,8], [2,9], [2,10],[2,11], [2,12], [2,13], [2,14], [2,15], [2,16], [2,17], [2,18], [2,19], [2,20], [3,0], [3,20], [4,0], [4,20],[5,0], [5,20],[6,0], [6,1], [6,2], [6,3], [6,4], [6,5],[6,6],[6,7], [6,8], [6,9], [6,10],[6,11], [6,12], [6,13], [6,14], [6,15], [6,16],[6,17],[6,18], [6,19], [6,20],  [5,7]]
+joueur = player.Player(4,4)
+listCible = [[4,6], [4,9]]
+listCaisse = [[4,5], [4,13]]
+
+presenceCaisse = False
+ 
+
+
+def haut(stdscr):
+    joueurPos = [joueur.posX,joueur.posY]
+    joueurNextPos = [joueur.posX  - 1, joueur.posY]
+    joueurNext2Pos = [joueur.posX  - 2, joueur.posY]
+    
+
+
+    if not (joueurNextPos in listCaisse):
+        if not (joueurNextPos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            joueur.posX = joueur.posX - 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.refresh()
+            joueurPos = [joueur.posX,joueur.posY]
+    else:
+        if not (joueurNext2Pos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            stdscr.addstr(joueur.posX - 1, joueur.posY,  " ")
+            joueur.posX = joueur.posX - 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.addstr( joueur.posX - 1, joueur.posY, "X")
+            stdscr.refresh()
+            joueurPos = [joueur.posX,joueur.posY]
+
+            i = listCaisse.index(joueurNextPos)
+            listCaisse[i] = [joueur.posX - 1, joueur.posY]
+                
+
+              
+    
+
+def bas(stdscr):
+    joueurPos = [joueur.posX,joueur.posY]
+    joueurNextPos = [joueur.posX  + 1, joueur.posY]
+    joueurNext2Pos = [joueur.posX  + 2, joueur.posY]
+    
+
+    if not (joueurNextPos in listCaisse):
+        if not (joueurNextPos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            joueur.posX = joueur.posX + 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.refresh()
+            joueurPos = [joueur.posX,joueur.posY]
+    else:
+        if not (joueurNext2Pos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            stdscr.addstr(joueur.posX + 1, joueur.posY,  " ")
+            joueur.posX = joueur.posX + 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.addstr( joueur.posX + 1, joueur.posY, "X")
+            stdscr.refresh()  
+            joueurPos = [joueur.posX,joueur.posY]   
+
+            i = listCaisse.index(joueurNextPos)
+            listCaisse[i] = [joueur.posX + 1, joueur.posY]   
+
+
+
+def gauche(stdscr):
+    joueurPos = [joueur.posX,joueur.posY]
+    joueurNextPos = [joueur.posX  , joueur.posY - 1]
+    joueurNext2Pos = [joueur.posX  , joueur.posY - 2]
+    
+
+    if not (joueurNextPos in listCaisse):
+        if not (joueurNextPos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            joueur.posY = joueur.posY - 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.refresh()
+            joueurPos = [joueur.posX,joueur.posY]
+    else:
+        if not (joueurNext2Pos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            stdscr.addstr(joueur.posX , joueur.posY - 1,  " ")
+            joueur.posY = joueur.posY - 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.addstr( joueur.posX , joueur.posY - 1, "X")
+            stdscr.refresh()  
+            joueurPos = [joueur.posX,joueur.posY] 
+
+            i = listCaisse.index(joueurNextPos)
+            listCaisse[i] = [joueur.posX, joueur.posY - 1]
+
+
+
+def droite(stdscr):  
+    joueurPos = [joueur.posX,joueur.posY]
+    joueurNextPos = [joueur.posX  , joueur.posY + 1]
+    joueurNext2Pos = [joueur.posX  , joueur.posY + 2]
+    
+
+    if not (joueurNextPos in listCaisse):
+        if not (joueurNextPos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            joueur.posY = joueur.posY + 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.refresh()
+            joueurPos = [joueur.posX,joueur.posY]
+    else:
+        if not (joueurNext2Pos in listWall):
+            stdscr.addstr(joueur.posX, joueur.posY,  " ")
+            stdscr.addstr(joueur.posX , joueur.posY + 1,  " ")
+            joueur.posY = joueur.posY + 1
+
+            for cible in listCible:
+                stdscr.addstr(cible[0],cible[1], f"O" )    
+
+            stdscr.addstr( joueur.posX, joueur.posY, "P")
+            stdscr.addstr( joueur.posX , joueur.posY + 1, "X")
+            stdscr.refresh()     
+            joueurPos = [joueur.posX,joueur.posY]  
+
+            i = listCaisse.index(joueurNextPos)
+            listCaisse[i] = [joueur.posX, joueur.posY + 1]                       
+
+
+
+
 def main(stdscr):
     curses.curs_set(0)
     curses.noecho()
@@ -13,43 +171,38 @@ def main(stdscr):
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
-    joueur = player.Player(3,4)
+    
     target_one = target.Target(4,6) 
     
+    stdscr.addstr(0,0,f"Hello bienvenue dans le jeu sokoban")
+        
+    for wall in listWall:
+        stdscr.addstr(wall[0],wall[1], f"#" )    
+
+    for cible in listCible:
+        stdscr.addstr(cible[0],cible[1], f"O" )    
+
+    for caisse in listCaisse:
+        stdscr.addstr(caisse[0],caisse[1], f"X" )        
+    
+    
+    stdscr.addstr(joueur.posX, joueur.posY, "P")
+    stdscr.addstr(target_one.posX, target_one.posY, "O")
+
     while True:
         entry = stdscr.getch()
-        stdscr.addstr(0,0,f"Hello bienvenue dans le jeu sokoban")
-        
 
-        stdscr.addstr(2,0, f"#########################")
-        stdscr.addstr(3,0, f"#                       #")
-        stdscr.addstr(4,0, f"#                       #")
-        stdscr.addstr(5,0, f"#                       #")
-        stdscr.addstr(6,0, f"#                       #")
-        stdscr.addstr(7,0, f"#                       #")
-        stdscr.addstr(8,0, f"#                       #")
-        stdscr.addstr(9,0, f"#                       #")
-        stdscr.addstr(10,0, f"#########################")
-
-        
-
-        # stdscr.addstr(joueur.posX, joueur.posY, "P")
-        stdscr.addstr(target_one.posX, target_one.posY, "O")
-
-
-
-        # stdscr.clear()
-        # h, w = stdscr.getmaxyx()
-        
-        # stdscr.addstr(0, 0, f"{str(h)}, {str(w)}")
+        for cible in listCible:
+            stdscr.addstr(cible[0],cible[1], f"O" ) 
+    
         if entry == curses.KEY_UP:
-            joueur.movePlayer(curses.KEY_UP, stdscr)
+            haut(stdscr)
         if entry == curses.KEY_DOWN:
-            joueur.movePlayer(curses.KEY_DOWN, stdscr)
+            bas(stdscr)
         if entry == curses.KEY_LEFT:
-            joueur.movePlayer(curses.KEY_LEFT, stdscr)
+            gauche(stdscr)
         if entry == curses.KEY_RIGHT:
-            joueur.movePlayer(curses.KEY_RIGHT, stdscr)
+            droite(stdscr)
 
 
     curses.endwin()
